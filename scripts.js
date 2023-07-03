@@ -1,44 +1,41 @@
 //List Books
-const cardData = [
-    {
-      title: 'Lorem ipsum 1',
-      author: 'Testeroo Testy 1',
-    },
-    {
-        title: 'Lorem ipsum 2',
-        author: 'Testeroo Testy 2',
-    },
-    {
-        title: 'Lorem ipsum 3',
-        author: 'Testeroo Testy 3',
-    },
-    {
-        title: 'Lorem ipsum 4',
-        author: 'Testeroo Testy 4',
-    },
-    {
-        title: 'Lorem ipsum 5',
-        author: 'Testeroo Testy 5',
-    },
-    {
-      title: 'Lorem ipsum 6',
-      author: 'Testeroo Testy 6',
-    },
-  ];
+const addButton = document.querySelector('.add-btn');
+const titleInput = document.querySelector('#title');
+const authorInput = document.querySelector('#author');
+
+const bookData = [];
+
+function Books(title, author) {
+  this.title = title;
+  this.author = author;
+};
+
+const postContainer = document.querySelector('.book-list');
   
-  const postContainer = document.querySelector('.book-list');
-  
-  const postMethods = () => {
-    cardData.forEach((postData) => {
-      const postElement = document.createElement('article');
-      postElement.classList.add('book-item');
-      postElement.innerHTML = `
-      <p class="book-title">${postData.title}</p>
-            <p class="book-author">${postData.author}</p>
-            <button>Remove</button>
-      `;
-      postContainer.appendChild(postElement);
+const postMethods = () => {
+  bookData.forEach((book) => {
+    const postElement = document.createElement('article');
+    postElement.classList.add('book-item');
+    postElement.innerHTML = `
+    <p class="book-title">${book.title}</p>
+          <p class="book-author">${book.author}</p>
+    `;
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'remove-btn';
+    removeBtn.innerText = 'Remove';
+    postElement.appendChild(removeBtn);
+    postContainer.appendChild(postElement);
+
     });
   };
-  
-  postMethods();
+
+  function addBook() {
+    let book = new Books(titleInput.value, authorInput.value);
+
+    if(titleInput.value && authorInput.value) {
+      bookData.push(book)
+    }
+  }
+
+addButton.addEventListener('click', addBook);
+addButton.addEventListener('click', postMethods);
