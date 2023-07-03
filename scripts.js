@@ -9,12 +9,15 @@ const form = document.querySelector(".add-book-form");
 function Book(title, author) {
   this.title = title;
   this.author = author;
+  this.id = Math.random().toString() //unique id declaration
 }
 
 const postContainer = document.querySelector(".book-list");
 
 function postMethods() {
+  //create
   const bookDB = JSON.parse(localStorage.getItem("bookData"));
+  // check the local storage if there is any database for books list
   if (bookDB === null || bookDB.length === 0) {
     // exit before
     return;
@@ -32,7 +35,9 @@ function postMethods() {
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
     removeBtn.innerText = "Remove";
+    removeBtn.id = book.id;
     postElement.appendChild(removeBtn);
+
   });
 }
 
@@ -53,4 +58,4 @@ function addBook() {
   /* var newbookData = JSON.parse(localStorage.getItem('bookData')) */
 }
 
-form.addEventListener("submit", Book.addBook);
+form.addEventListener("submit", addBook);
