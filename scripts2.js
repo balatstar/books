@@ -26,10 +26,26 @@ let cardData = [
 ];
 
 const postContainer = document.querySelector('.book-list');
+        const addForm = document.getElementById('add-books');
+        const titleInput = document.getElementById('title');
+        const authorInput = document.getElementById('author');
 
         const removeArticle = (event, index) => {
             cardData = cardData.filter((element, i) => i !== index);
             postMethods();
+        };
+
+        const addArticle = (event) => {
+            event.preventDefault();
+            const title = titleInput.value;
+            const author = authorInput.value;
+
+            if (title && author) {
+                const newArticle = { title, author };
+                cardData.push(newArticle);
+                postMethods();
+                addForm.reset();
+            }
         };
 
         const postMethods = () => {
@@ -48,3 +64,4 @@ const postContainer = document.querySelector('.book-list');
         };
 
         postMethods();
+        addForm.addEventListener('submit', addArticle);
